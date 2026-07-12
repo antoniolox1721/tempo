@@ -1,0 +1,23 @@
+#splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  animation: splash-out .35s ease 1.25s forwards;
+}
+#splash svg { width: min(40vw, 180px); height: auto; color: var(--text1); }
+#splash .sand-top { animation: splash-drain 1.1s linear forwards; }
+#splash .sand-bot { animation: splash-fill 1.1s linear forwards; }
+#splash .stream { animation: splash-hide .1s linear 1.05s forwards; }
+@keyframes splash-drain { to { transform: translateY(21.5px); } }
+@keyframes splash-fill { to { transform: translateY(-20px); } }
+@keyframes splash-hide { to { opacity: 0; } }
+@keyframes splash-out { to { opacity: 0; visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) {
+  #splash .sand-top,
+  #splash .sand-bot,
+  #splash .stream { animation-duration: 1ms; animation-delay: 0s; }
+}
