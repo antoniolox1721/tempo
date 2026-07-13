@@ -414,6 +414,109 @@ footer { padding: 0 16px calc(10px + env(safe-area-inset-bottom)); }
 .input-bar.voice:not(.thinking) .send .arrow { display: none; }
 .input-bar.voice:not(.thinking) .send .mic { display: block; }
 
+/* -------------------------------------------------------- v1.5 dashboard */
+
+/* group filter chips pinned under the header */
+.group-chips {
+  display: flex;
+  gap: 8px;
+  padding: 0 20px 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex-shrink: 0;
+}
+.group-chips::-webkit-scrollbar { display: none; }
+.group-chips[hidden] { display: none; }
+.g-chip {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 50px;
+  background: var(--surface2);
+  border: 1px solid var(--outline);
+  color: var(--text2);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.g-chip .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gc); }
+.g-chip.sel {
+  background: color-mix(in srgb, var(--gc) 16%, transparent);
+  border-color: var(--gc);
+  color: var(--text1);
+}
+
+/* hero: the very next reminder, big time, live countdown */
+.task.hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 22px;
+  background: linear-gradient(120deg, var(--accent-dim), var(--surface2));
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.task.hero .hero-time { flex-shrink: 0; display: flex; flex-direction: column; }
+.task.hero .hero-time .big { font-size: 30px; font-weight: 700; letter-spacing: -1px; color: var(--accent); }
+.task.hero .hero-time .cd { font-size: 13px; color: var(--text2); }
+.task.hero .hero-sub {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text2);
+}
+.task.hero .hero-sub .dot { width: 8px; height: 8px; border-radius: 50%; }
+.task.hero .hg-mini { flex-shrink: 0; color: var(--accent); }
+
+/* quick actions at the foot of the dashboard */
+.quick-actions {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.quick-actions::-webkit-scrollbar { display: none; }
+.qa {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 50px;
+  background: var(--surface2);
+  border: 1px solid var(--outline);
+  color: var(--text2);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* "What time?" follow-up in the preview */
+.ask-time { margin-top: 10px; }
+.ask-time > span { font-size: 14px; font-weight: 600; color: var(--accent); }
+
+/* autocomplete from past reminders, above the input bar */
+.suggest { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+.suggest[hidden] { display: none; }
+.suggest button {
+  text-align: left;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: var(--surface2);
+  color: var(--text2);
+  font-size: 14px;
+}
+
+/* a Today card lifted for drag-reordering */
+.task.lifting {
+  position: relative;
+  z-index: 5;
+  opacity: 0.95;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
 /* ----------------------------------------------------------------- toast */
 
 .toast {
