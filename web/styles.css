@@ -61,30 +61,48 @@ svg { display: block; }
 
 /* ---------------------------------------------------------------- header */
 
-header { padding: calc(18px + env(safe-area-inset-top)) 20px 12px; }
+/* a whisper of raised surface fading into the canvas: light falls from the
+   top in both themes, separating the header from the scroll below */
+header {
+  padding: calc(10px + env(safe-area-inset-top)) 20px 14px;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--surface2) 55%, transparent), transparent);
+}
 
-.header-row { display: flex; align-items: center; gap: 12px; }
+.header-row { display: flex; align-items: center; gap: 2px; }
 
 h1 { display: flex; align-items: center; font-size: 34px; font-weight: 700; letter-spacing: -1px; }
 h1 svg { height: 33px; width: 33px; margin-right: -5px; }
 
+/* the count pill shares the date line so title, date, and status read as one
+   block instead of a chip floating among the icons */
 .count-pill {
   margin-left: auto;
-  padding: 6px 12px;
+  padding: 4px 10px;
   border-radius: 50px;
   background: var(--accent-dim);
   color: var(--accent);
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.4px;
+  white-space: nowrap;
 }
 
-.header-date-row { display: flex; align-items: center; gap: 5px; margin-top: 2px; }
+.header-date-row { display: flex; align-items: center; gap: 5px; margin-top: 2px; min-height: 24px; }
 /* today as an hourglass: its sand level is how much of the day has run out */
 #day-hg { color: var(--text3); flex-shrink: 0; }
 .header-date { font-size: 14px; color: var(--text2); }
 
-#theme-btn { padding: 4px; color: var(--text3); }
+/* ≥44px touch targets (parity with the app's 48dp IconButtons) */
+#theme-btn, #groups-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--text3);
+}
 #theme-btn .moon { display: none; }
 :root[data-theme="light"] #theme-btn .sun { display: none; }
 :root[data-theme="light"] #theme-btn .moon { display: block; }
@@ -244,6 +262,17 @@ main {
 }
 .done-card .icon-btn { padding: 4px; color: var(--text3); }
 
+/* stats card: how much sand has already made it through the glass */
+.stats-card {
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--surface2);
+  border: 1px solid color-mix(in srgb, var(--text1) 10%, transparent);
+}
+.stats-card .headline { font-size: 17px; font-weight: 600; letter-spacing: -0.2px; }
+.stats-card .headline b { color: var(--accent); }
+.stats-card .sub { margin-top: 2px; font-size: 14px; color: var(--text2); }
+
 /* ----------------------------------------------------------- first-run hint */
 
 .hint {
@@ -339,7 +368,14 @@ main {
 
 /* ------------------------------------------------------------- input bar */
 
-footer { padding: 0 16px calc(10px + env(safe-area-inset-bottom)); }
+/* --kb is the soft-keyboard height (set from visualViewport in app.js): it
+   lifts the input bar above the iOS keyboard and compresses the list, since
+   the layout viewport doesn't shrink there */
+footer {
+  padding: 0 16px calc(10px + env(safe-area-inset-bottom));
+  margin-bottom: var(--kb, 0px);
+  transition: margin-bottom 0.15s ease-out;
+}
 
 /* quick time chips: typed a title but no time yet? one tap finishes the sentence */
 .quick-chips {
