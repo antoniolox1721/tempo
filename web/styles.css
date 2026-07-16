@@ -153,34 +153,25 @@ main {
 .task.overdue .time-block { background: color-mix(in srgb, var(--danger) 14%, transparent); }
 .task.overdue .time-block .clock, .task.overdue .time-block .rel { color: var(--danger); }
 
-/* sand bar: remaining time drains from creation to due, with a mini hourglass
-   whose sand level matches */
+/* card hourglass: the sand level is the time remaining, grains fall while
+   any is left — green, then amber inside 12 hours, red inside the last 3 */
 .task .sand-row {
   display: flex;
   align-items: center;
-  gap: 7px;
   margin-top: 10px;
-  color: color-mix(in srgb, var(--accent) 75%, transparent);
+  color: var(--success);
 }
 .task .sand-row.mid { color: var(--warn); }
 .task .sand-row.low { color: var(--danger); }
 .task .hg-mini { flex-shrink: 0; }
-.task .sand {
-  flex: 1;
-  height: 3px;
-  border-radius: 2px;
-  background: color-mix(in srgb, var(--outline) 40%, transparent);
-  overflow: hidden;
+.hg-grain { animation: hg-fall 0.7s linear infinite; }
+@keyframes hg-fall {
+  from { transform: translateY(0); }
+  to { transform: translateY(var(--fall)); }
 }
-.task .sand .fill {
-  display: block;
-  height: 100%;
-  border-radius: 2px;
-  background: color-mix(in srgb, var(--accent) 75%, transparent);
-  transition: width 0.6s ease;
+@media (prefers-reduced-motion: reduce) {
+  .hg-grain { animation: none; visibility: hidden; }
 }
-.task .sand .fill.mid { background: var(--warn); }
-.task .sand .fill.low { background: var(--danger); }
 
 /* one-tap reschedule for overdue tasks */
 .task .resched { display: flex; gap: 8px; margin-top: 10px; }
